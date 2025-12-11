@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Maker</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007bff">
-    
+    <title>โปรแกรมสร้าง QR Code ง่ายๆ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
@@ -18,7 +14,6 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            flex-direction: column;
         }
         .container {
             background-color: white;
@@ -27,93 +22,82 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-align: center;
             width: 350px;
-            max-width: 90%;
         }
-        h2 { color: #333; margin-bottom: 20px; }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
         input {
-            width: 100%; padding: 12px; margin-bottom: 15px;
-            border: 2px solid #ddd; border-radius: 8px;
-            box-sizing: border-box; font-size: 16px;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; /* ให้ padding ไม่ขยายขนาดกล่อง */
+            font-size: 16px;
         }
         button {
-            background-color: #007bff; color: white; border: none;
-            padding: 12px 24px; border-radius: 8px; cursor: pointer;
-            font-size: 16px; width: 100%; margin-bottom: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
         }
-        button:hover { background-color: #0056b3; }
-        
-        /* ปุ่ม Install จะซ่อนไว้ก่อน */
-        #installBtn {
-            background-color: #28a745;
-            display: none; 
+        button:hover {
+            background-color: #0056b3;
         }
-        #installBtn:hover { background-color: #218838; }
-
-        #qrcode { margin-top: 25px; display: flex; justify-content: center; }
-        #qrcode img { border: 5px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        #qrcode {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+        /* จัดการรูปที่เจนออกมา */
+        #qrcode img {
+            border: 5px solid white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>สร้าง QR Code</h2>
+        <p>ใส่ลิงก์หรือข้อความที่ต้องการ</p>
         
-        <button id="installBtn">📲 ติดตั้งแอป</button>
-
-        <input type="text" id="text-input" placeholder="ใส่ข้อความ หรือ ลิงก์ที่นี่" />
-        <button onclick="generateQR()">สร้าง QR Code</button>
+        <input type="text" id="text-input" placeholder="เช่น https://www.google.com" />
+        <button onclick="generateQR()">สร้าง QR Code เลย</button>
 
         <div id="qrcode"></div>
     </div>
 
     <script>
-        // 1. ส่วนสร้าง QR Code
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 200, height: 200,
-            colorDark : "#000000", colorLight : "#ffffff",
+            width: 200,
+            height: 200,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });
 
         function generateQR() {
             var inputData = document.getElementById("text-input").value;
-            if (!inputData) { alert("กรุณาใส่ข้อความก่อนครับ"); return; }
-            qrcode.clear();
+            
+            if (!inputData) {
+                alert("กรุณาใส่ข้อความหรือลิงก์ก่อนครับ");
+                return;
+            }
+
+            // เคลียร์ QR Code เก่า (ถ้ามี) แล้วสร้างใหม่
+            qrcode.clear(); 
             qrcode.makeCode(inputData);
         }
-        qrcode.makeCode("https://google.com");
 
-        // 2. ส่วนจัดการ PWA และปุ่ม Install
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-            .then(() => console.log("Service Worker Registered"));
-        }
-
-        let deferredPrompt;
-        const installBtn = document.getElementById('installBtn');
-
-        // ดักจับ Event เมื่อ Browser พร้อมให้ติดตั้ง
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // ป้องกันไม่ให้แถบ Install เด้งขึ้นมาเอง
-            e.preventDefault();
-            // เก็บ event ไว้ใช้เมื่อกดปุ่ม
-            deferredPrompt = e;
-            // โชว์ปุ่ม Install ของเรา
-            installBtn.style.display = 'block';
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                // สั่งให้โชว์ Prompt ติดตั้ง
-                deferredPrompt.prompt();
-                // รอผลลัพธ์ว่าผู้ใช้กดติดตั้งไหม
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User response: ${outcome}`);
-                // ใช้แล้วทิ้งไป
-                deferredPrompt = null;
-                // ซ่อนปุ่มหลังกด
-                installBtn.style.display = 'none';
-            }
-        });
+        // สร้าง QR Code เริ่มต้นไว้เท่ๆ ตอนเปิดเว็บ
+        qrcode.makeCode("ยินดีต้อนรับ");
     </script>
 
 </body>
