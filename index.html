@@ -3,102 +3,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>โปรแกรมสร้าง QR Code ง่ายๆ</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="สร้าง QR Code ฟรี ง่าย รวดเร็ว - Developed by พว.วิษณุกรณ์ โอยา">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QR Generator">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%236366f1' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='50' text-anchor='middle' fill='white'%3EQR%3C/text%3E%3C/svg%3E">
+    <title>QR Code Generator - by พว.วิษณุกรณ์ โอยา</title>
+    <link rel="manifest" href="data:application/json;charset=utf-8;base64,ewogICJuYW1lIjogIlFSIENvZGUgR2VuZXJhdG9yIC0gYnkg4Lie4LinLuC4p+C4tOC4qeC4k+C4uOC4geC4o+C4k+C5jCDguYLguK3guKLguLIiLAogICJzaG9ydF9uYW1lIjogIlFSIEdlbmVyYXRvciIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiM2MzY2ZjEiLAogICJkZXNjcmlwdGlvbiI6ICLguKrguKPguYnguLLguIcgUVIgQ29kZSDguJ/guKPguLUg4LiH4LmI4Liy4LiiIOC4o+C4p+C4lOC5gOC4o+C5h+C4tiAtIERldmVsb3BlZCBieSDguJ7guKcu4Lin4Li04Lip4LiT4Li44LiB4Lij4LiT4LmMIOC5guC4reC4ouC4siIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ3JlY3QgZmlsbD0nJTIzNjM2NmYxJyB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcvJTNFJTNDdGV4dCB4PSc1MCcgeT0nNjAnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9J3doaXRlJyUzRVFSJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDcmVjdCBmaWxsPSclMjM2MzY2ZjEnIHdpZHRoPScxMDAnIGhlaWdodD0nMTAwJy8lM0UlM0N0ZXh0IHg9JzUwJyB5PSc2MCcgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnJTNFUVIlM0MvdGV4dCUzRSUzQy9zdmclM0UiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 20px;
         }
+
         .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 350px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: slideUp 0.5s ease;
         }
-        h2 {
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
             color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .input-group {
             margin-bottom: 20px;
         }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box; /* ให้ padding ไม่ขยายขนาดกล่อง */
-            font-size: 16px;
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
         }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .color-picker-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .color-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="color"] {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
         button {
-            background-color: #007bff;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 10px;
             font-size: 16px;
-            width: 100%;
-            transition: background 0.3s;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
         }
+
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .qr-result {
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .qr-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         #qrcode {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-        /* จัดการรูปที่เจนออกมา */
+
+        #qrcode canvas,
         #qrcode img {
-            border: 5px solid white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .qr-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #333;
+            word-wrap: break-word;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .install-prompt {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .install-prompt.show {
+            display: block;
+        }
+
+        .install-prompt button {
+            margin-top: 10px;
+            background: white;
+            color: #4facfe;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .credit {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .developer {
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.1em;
+        }
+
+        .version {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .pwa-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .color-picker-group {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>สร้าง QR Code</h2>
-        <p>ใส่ลิงก์หรือข้อความที่ต้องการ</p>
-        
-        <input type="text" id="text-input" placeholder="เช่น https://www.google.com" />
-        <button onclick="generateQR()">สร้าง QR Code เลย</button>
+        <div class="install-prompt" id="installPrompt">
+            <p>📱 ติดตั้งแอปนี้บนหน้าจอหลักเพื่อใช้งานง่ายขึ้น!</p>
+            <button onclick="installApp()">ติดตั้งเลย</button>
+        </div>
 
-        <div id="qrcode"></div>
+        <h1>🎯 QR Code Generator</h1>
+        <p class="subtitle">สร้าง QR Code ง่ายๆ ในไม่กี่วินาที</p>
+
+        <div class="input-group">
+            <label for="text">ข้อความหรือ URL</label>
+            <input type="text" id="text" placeholder="https://example.com หรือข้อความใดๆ">
+        </div>
+
+        <div class="input-group">
+            <label for="size">ขนาด QR Code</label>
+            <select id="size">
+                <option value="200">เล็ก (200x200)</option>
+                <option value="300" selected>กลาง (300x300)</option>
+                <option value="400">ใหญ่ (400x400)</option>
+                <option value="500">ใหญ่มาก (500x500)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>สีของ QR Code</label>
+            <div class="color-picker-group">
+                <div class="color-input">
+                    <input type="color" id="colorDark" value="#000000">
+                    <span>สีหลัก</span>
+                </div>
+                <div class="color-input">
+                    <input type="color" id="colorLight" value="#ffffff">
+                    <span>สีพื้นหลัง</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="labelText">ข้อความใต้ QR Code (ถ้ามี)</label>
+            <input type="text" id="labelText" placeholder="เช่น ชื่อธุรกิจ, เว็บไซต์, หรือข้อความใดๆ">
+        </div>
+
+        <div class="input-group">
+            <label for="labelSize">ขนาดข้อความ</label>
+            <select id="labelSize">
+                <option value="16">เล็ก</option>
+                <option value="20" selected>กลาง</option>
+                <option value="24">ใหญ่</option>
+                <option value="28">ใหญ่มาก</option>
+            </select>
+        </div>
+
+        <button onclick="generateQR()">🎨 สร้าง QR Code</button>
+
+        <div class="qr-result" id="qrResult">
+            <div id="qrcode"></div>
+            <button class="download-btn" onclick="downloadQR()">💾 ดาวน์โหลด QR Code</button>
+        </div>
+
+        <div class="footer">
+            <p class="credit">พัฒนาโดย</p>
+            <p class="developer">👨‍💻 พว.วิษณุกรณ์ โอยา</p>
+            <div class="pwa-badge">✨ Progressive Web App</div>
+            <p class="version">Version 1.0 | 2024</p>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 200,
-            height: 200,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+        let qrCode = null;
+        let deferredPrompt;
+
+        // PWA Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').classList.add('show');
         });
 
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installPrompt').classList.remove('show');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'qr-generator-v1';
+                    const urlsToCache = [
+                        './',
+                        'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                        self.skipWaiting();
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => response || fetch(event.request))
+                        );
+                    });
+
+                    self.addEventListener('activate', (event) => {
+                        event.waitUntil(
+                            caches.keys().then((cacheNames) => {
+                                return Promise.all(
+                                    cacheNames.map((cacheName) => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl)
+                    .then(() => console.log('PWA Service Worker registered successfully'))
+                    .catch((err) => console.log('Service Worker registration failed:', err));
+            });
+        }
+
         function generateQR() {
-            var inputData = document.getElementById("text-input").value;
-            
-            if (!inputData) {
-                alert("กรุณาใส่ข้อความหรือลิงก์ก่อนครับ");
+            const text = document.getElementById('text').value;
+            const size = parseInt(document.getElementById('size').value);
+            const colorDark = document.getElementById('colorDark').value;
+            const colorLight = document.getElementById('colorLight').value;
+            const labelText = document.getElementById('labelText').value;
+            const labelSize = document.getElementById('labelSize').value;
+
+            if (!text) {
+                alert('กรุณากรอกข้อความหรือ URL');
                 return;
             }
 
-            // เคลียร์ QR Code เก่า (ถ้ามี) แล้วสร้างใหม่
-            qrcode.clear(); 
-            qrcode.makeCode(inputData);
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+
+            qrCode = new QRCode(qrContainer, {
+                text: text,
+                width: size,
+                height: size,
+                colorDark: colorDark,
+                colorLight: colorLight,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Add label if provided
+            if (labelText) {
+                setTimeout(() => {
+                    const label = document.createElement('div');
+                    label.className = 'qr-label';
+                    label.style.fontSize = labelSize + 'px';
+                    label.textContent = labelText;
+                    qrContainer.appendChild(label);
+                }, 100);
+            }
+
+            document.getElementById('qrResult').classList.add('show');
         }
 
-        // สร้าง QR Code เริ่มต้นไว้เท่ๆ ตอนเปิดเว็บ
-        qrcode.makeCode("ยินดีต้อนรับ");
-    </script>
+        function downloadQR() {
+            const qrContainer = document.getElementById('qrcode');
+            const canvas = qrContainer.querySelector('canvas');
+            const label = qrContainer.querySelector('.qr-label');
+            
+            if (!canvas) {
+                alert('กรุณาสร้าง QR Code ก่อน');
+                return;
+            }
 
+            // Create a new canvas to combine QR code and label
+            const finalCanvas = document.createElement('canvas');
+            const ctx = finalCanvas.getContext('2d');
+            
+            const padding = 40;
+            const labelHeight = label ? parseInt(label.style.fontSize) + 30 : 0;
+            
+            finalCanvas.width = canvas.width + (padding * 2);
+            finalCanvas.height = canvas.height + (padding * 2) + labelHeight;
+            
+            // Fill white background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+            
+            // Draw QR code
+            ctx.drawImage(canvas, padding, padding);
+            
+            // Draw label if exists
+            if (label) {
+                ctx.fillStyle = '#333333';
+                ctx.font = `600 ${label.style.fontSize} 'Segoe UI', sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const labelY = canvas.height + padding + (labelHeight / 2);
+                ctx.fillText(label.textContent, finalCanvas.width / 2, labelY);
+            }
+            
+            // Download
+            const url = finalCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = url;
+            link.click();
+        }
+
+        // Enter key to generate
+        document.getElementById('text').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateQR();
+            }
+        });
+    </script>
 </body>
 </html>
